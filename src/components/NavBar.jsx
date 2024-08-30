@@ -7,25 +7,27 @@ import moreIcon from "../assets/more.png";
 import notificationIcon from "../assets/notification.png";
 import profileIcon from "../assets/user_profile.jpg";
 
-const NavBar = () => {
+const NavBar = ({ setSideBar }) => {
     return (
-        <nav className=' text-gray-500'>
-            <div>
-                <img src={menuIcon} alt='' />
-                <img src={logo} alt='' />
+        <nav className=' flex items-center p-2 mb-2 justify-between shadow-[0_0_10px_rgba(0,0,0,0.2)] bg-white sticky top-0 z-10'>
+            <div className=' flex items-center mr-10'>
+                <img src={menuIcon} alt='' className=' w-[22px] mr-2' onClick={() => setSideBar(prev => !prev)} />
+                <img src={logo} alt='' className=' w-[130px] ' />
 
             </div>
 
-            <div>
-                <input type='text' placeholder='Search' />
-                <img src={searchIcon} alt='' />
+            <div className=' flex items-center w-2/5 border-none outline-0 bg-transparent mx-10'>
+                <div className=' flex border border-solid border-[#ccc] mr-4 px-2 py-3 rounded-full w-full '>
+                    <input type='text' placeholder='Search' className=' w-full border-none px-4 focus:outline-none focus:border-transparent' />
+                    <img src={searchIcon} alt='' className=' w-6 mr-1' />
+                </div>
             </div>
 
-            <div>
-                <img src={uploadIcon} alt="" className="" />
-                <img src={moreIcon} alt="" className="" />
-                <img src={notificationIcon} alt="" className="" />
-                <img src={profileIcon} alt="" className="" />
+            <div className=' flex items-center mr-11 justify-between  w-44'>
+                <img src={uploadIcon} alt="" className=" w-8 " />
+                <img src={moreIcon} alt="" className=" w-8 " />
+                <img src={notificationIcon} alt="" className=" w-8 " />
+                <img src={profileIcon} alt="" className=" w-8 rounded-full" />
 
 
             </div>
