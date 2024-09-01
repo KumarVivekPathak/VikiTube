@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import thumbnail1 from '../assets/thumbnail1.png';
-import thumbnail2 from '../assets/thumbnail2.png';
-import thumbnail3 from '../assets/thumbnail3.png';
 import { API_KEY, value_converter } from '../config';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +38,7 @@ const Recommended = ({ categoryId }) => {
     }, [categoryId])
 
     return (
-        <section className=' basis-1/3'>
+        <section className=' basis-1/3 md:basis-full'>
 
             {recommended && recommended?.map((item, idx) => {
                 return (

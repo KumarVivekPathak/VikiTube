@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Video1 from '../assets/video.mp4';
 import like from '../assets/like.png';
 import dislike from '../assets/dislike.png';
 import share from '../assets/share.png';
 import save from '../assets/save.png';
-import jack from "../assets/jack.png";
-import userProfile from "../assets/user_profile.jpg";
 import { API_KEY, value_converter } from '../config';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
+import showMore from '../assets/show-more.png'
 
 
 
@@ -18,6 +16,7 @@ const PlayVideo = () => {
     const [apiData, setApiData] = useState();
     const [channelData, setChannelData] = useState();
     const [commentData, setCommentData] = useState();
+    const [showCompeleteDes, setShowCompeleteDes] = useState(false);
 
 
     const videoAPICall = async () => {
@@ -39,7 +38,7 @@ const PlayVideo = () => {
             viewCount: value_converter(viewCount),
             publishedAt: moment(publishedAt).fromNow(),
             likes: value_converter(likes),
-            description: description.slice(0, 250),
+            description: description,
             commentCount: value_converter(commentCount),
             channelTitle: channelTitle,
             channelId: channelId
@@ -94,24 +93,24 @@ const PlayVideo = () => {
     }, [apiData])
 
     return (
-        <div className='flex basis-2/3 flex-col'>
+        <div className='flex basis-2/3 flex-col md:basis-full '>
             {/* <video
                 className=' w-full '
                 src={Video1} controls autoPlay muted /> */}
             <iframe
-                className='w-full h-[37vw]'
+                className='w-full h-[37vw] md:w-96 md:h-[50vw]'
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen></iframe>
             <h3 className=' mt-2 font-semibold text-base '>{apiData?.title}</h3>
-            <div className='flex items-center justify-between flex-wrap mt-2 text-sm text-[#5a5a5a]'>
+            <div className='flex items-center justify-between flex-wrap mt-2 text-sm text-[#5a5a5a] ' >  {/*playvideinfo*/}
                 <p>{apiData?.viewCount} views &bull; {apiData?.publishedAt} </p>
                 <div className=' flex items-center'>
-                    <span className=' inline-flex items-center ml-5' > <img className=' w-5 mr-2' src={like} alt='' />{apiData?.likes}</span>
-                    <span className=' inline-flex items-center ml-5'> <img className=' w-5 mr-2' src={dislike} alt='' /></span>
-                    <span className=' inline-flex items-center ml-5'> <img className=' w-5 mr-2' src={save} alt='' />Save</span>
-                    <span className=' inline-flex items-center ml-5'> <img className=' w-5 mr-2' src={share} alt='' />Share</span>
+                    <span className=' inline-flex items-center ml-5 md:ml-0 md:mr-4 md:mt-4' > <img className=' w-5 mr-2' src={like} alt='' />{apiData?.likes}</span>
+                    <span className=' inline-flex items-center ml-5 md:ml-0 md:mr-4 md:mt-4'> <img className=' w-5 mr-2' src={dislike} alt='' /></span>
+                    <span className=' inline-flex items-center ml-5 md:ml-0 md:mr-4 md:mt-4'> <img className=' w-5 mr-2' src={save} alt='' />Save</span>
+                    <span className=' inline-flex items-center ml-5 md:ml-0 md:mr-4 md:mt-4'> <img className=' w-5 mr-2' src={share} alt='' />Share</span>
 
                 </div>
 
@@ -123,11 +122,21 @@ const PlayVideo = () => {
                     <p className=' text-black font-semibold text-lg '>{apiData?.channelTitle}</p>
                     <span className=' text-sm text-gray-600'>{channelData?.subscrbers} Subscribers</span>
                 </div>
-                <button className=' bg-red-600 text-white py-2 px-8 rounded-md cursor-pointer ' > Subscribe</button>
+                {/* <button className=' bg-red-600 text-white py-2 px-8 rounded-md cursor-pointer ' > Subscribe</button> */}
             </div>
-            <div className=' pl-14 my-4 mx-0'>
-                <p className=' text-sm mb-2 text-gray-600'>Channel that maked learnign easy</p>
-                <p className=' text-sm mb-2 text-gray-600'>Subscribe Great Stack to watch more tutorials on web dev</p>
+            <div className=' pl-14 my-4 mx-0 md:p-0'> {/* desc */}
+                {!showCompeleteDes ?
+                    <p className='text-sm mb-2 text-gray-600'>
+                        {apiData?.description.slice(0, 250)}
+                        <span
+                            className=' cursor-pointer'
+                            onClick={() => setShowCompeleteDes(true)}
+                        >
+                            ...
+                        </span>
+                    </p> :
+                    <p className=' text-sm mb-2 text-gray-600'>{apiData?.description}</p>
+                }
                 <hr />
                 <h4 className='text-sm text-gray-600 mt-4 font-semibold'>{apiData?.commentCount} Comments</h4>
 
