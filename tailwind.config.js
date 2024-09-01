@@ -15,6 +15,7 @@ export default {
         '30': '50px',
         '15': '35px',
       },
+     
     },
   },
   plugins: [],
